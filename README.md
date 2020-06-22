@@ -15,6 +15,13 @@ continue playing while you’re gone.
 
 Working link [https://adventure-capitalists.web.app](https://adventure-capitalists.web.app)
 
+## Instructions
+1. Click on the Business Image to make money
+2. Buy more units of same business by clicking `Buy x1` button.
+3. Buy more business when you sufficent balance by clicking on the business.
+4. From the left side buy managers that to automate money making from business
+5. And also you can buy upgraders to mulitiply your profit from the business.
+
 ## UI
 
 The UI of the game is build using Reactjs and to communicate state between different components Reduxjs is being used.
