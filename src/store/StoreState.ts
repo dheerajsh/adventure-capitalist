@@ -1,8 +1,7 @@
 import { Map } from 'immutable'
-import { BusinessState } from '../components/business/business.component'
+import { BusinessState } from '../components/business/business'
 // tslint:disable-next-line:no-namespace
 export namespace StoreState {
-
 
     export type Account = {
         balance: number,
@@ -12,7 +11,8 @@ export namespace StoreState {
     export type Business = {
         count: number,
         state: BusinessState,
-        hasActiveManager: boolean
+        hasActiveManager: boolean,
+        value: number,
 
     }
     export type Businesess = {

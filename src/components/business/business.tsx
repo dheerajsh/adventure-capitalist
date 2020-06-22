@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col'
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import Figure from 'react-bootstrap/Figure'
 
-import './business.component.sass'
+import './business.sass'
 import { Timer } from '../timer/timer.component'
 
 export enum BusinessState {
@@ -21,6 +21,7 @@ export interface IBusinessProps {
     readonly madeMoney?: (money: number) => void
     readonly buyBusiness?: (money: number) => void
     readonly incrementBusiness?: (name: string) => void
+    readonly addBusinessValue?: (name: string, value: number) => void
     readonly overallValue?: number
     readonly state?: BusinessState
     readonly makeMoneyTimeInMiliSeconds?: number
@@ -59,7 +60,12 @@ export class Business extends React.Component<IBusinessProps, IBusinessState> {
     componentDidUpdate(prevProp: IBusinessProps) {
         if (this.props.overallValue !== prevProp.overallValue && this.state.state !== BusinessState.PURCHASED) {
             this.setState({
-                state: this.props.overallValue >= this.props.value? BusinessState.UNLOCKED : BusinessState.LOCKED
+                state: this.props.overallValue >= this.props.value ? BusinessState.UNLOCKED : BusinessState.LOCKED,
+            })
+        }
+        if (this.props.value !== prevProp.value) {
+            this.setState({
+                currentValue: this.state.numberOfBusiness * this.props.value
             })
         }
         if (this.props.hasActiveManager && !this.state.managerStarted) {
@@ -77,7 +83,9 @@ export class Business extends React.Component<IBusinessProps, IBusinessState> {
                 managerStarted: true
             })
         }
+        this.props.addBusinessValue && this.props.addBusinessValue(this.props.name, this.props.value)
     }
+
     async startManager() {
         console.log("manager started")
         setInterval(() => {
@@ -112,6 +120,7 @@ export class Business extends React.Component<IBusinessProps, IBusinessState> {
         }
         else {
             const image = `${this.props.name.split(' ')[0].toLowerCase()}.png`
+            const { overallValue, value } = this.props
             return (
                 <div className='game'>
                     <Row>
@@ -129,8 +138,8 @@ export class Business extends React.Component<IBusinessProps, IBusinessState> {
                         <Col xs={3}>
                             <ProgressBar className='money_progress' now={this.state.progressPercentage} variant='success' animated striped label={this.state.currentValue} />
                             <div className='buy'>
-                                <Button variant='warning' onClick={this.buyBusiness}>
-                                    Buy x1
+                                <Button variant='warning' className='buy_button' disabled={overallValue < value} onClick={this.buyBusiness}>
+                                    BUYx1-${value}
                                 </Button>
                                 <Button variant='secondary' disabled>
                                     <Timer minutes={this.state.minutes} seconds={this.state.seconds}></Timer>

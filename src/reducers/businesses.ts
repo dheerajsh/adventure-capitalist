@@ -1,11 +1,13 @@
 import {
     ADD,
     ADD_MANAGER,
+    ADD_VALUE,
+    UPGRADE_BUSINESS,
     businessActionType
 } from '../actions/businesses'
 import { Map } from 'immutable'
 import { StoreState } from '../store/StoreState'
-import { BusinessState } from '../components/business/business.component'
+import { BusinessState } from '../components/business/business'
 
 
 const initialState: StoreState.Businesess = {
@@ -29,6 +31,31 @@ export function businessReducer(state = initialState, action: businessActionType
                     ...business,
                     state: BusinessState.PURCHASED,
                     count
+                })
+            }
+        }
+
+        case ADD_VALUE: {
+            const businesses = Map(state.businessesMap)
+            const business = businesses.get(action.businessName)
+            return {
+                ...state,
+                businessesMap: businesses.set(action.businessName, {
+                    ...business,
+                    value: action.value
+                })
+            }
+        }
+
+        case UPGRADE_BUSINESS: {
+            const businesses = Map(state.businessesMap)
+            const business = businesses.get(action.businessName)
+            const value = business.value
+            return {
+                ...state,
+                businessesMap: businesses.set(action.businessName, {
+                    ...business,
+                    value: value*action.times
                 })
             }
         }

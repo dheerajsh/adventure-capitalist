@@ -9,7 +9,7 @@ export interface IManagerProps {
     readonly buyManager?: (businessName: string) => void,
     readonly payForManager?: (value: number) => void,
     readonly bought?: boolean,
-    readonly overallValue?: number
+    readonly overallValue?: number,
 }
 
 export interface IManagerState {
@@ -25,7 +25,8 @@ export class Manager extends React.Component<IManagerProps, IManagerState> {
         }
     }
     render() {
-        const { value, businessName, name } = this.props
+        const { value, businessName, name, overallValue, bought } = this.props
+        const disabled = bought || overallValue < value
         return (
             <div>
                 <div>
@@ -35,7 +36,7 @@ export class Manager extends React.Component<IManagerProps, IManagerState> {
                         <div><h5>${value}</h5></div>
                     </div>
                     <div>
-                        <Button variant='warning' disabled={this.state.disabled} onClick={this.onBuy}>
+                        <Button variant='warning' disabled={disabled} onClick={this.onBuy}>
                             {this.props.bought? 'Bought' : 'Buy'}
                          </Button>
                     </div>

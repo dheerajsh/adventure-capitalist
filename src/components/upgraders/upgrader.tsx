@@ -5,37 +5,25 @@ import Button from 'react-bootstrap/Button'
 export interface IUpgraderProps {
     readonly value?: number
     readonly businessName?: string
-    readonly name?: string,
-    readonly buyUpgrader?: (businessName: string) => void,
+    readonly buyUpgrader?: (businessName: string, times: number) => void,
     readonly payForUpgrader?: (value: number) => void,
-    readonly bought?: boolean,
+    readonly times?: number,
     readonly overallValue?: number
 }
 
-export interface IUpgraderState {
-    readonly disabled?: boolean
-}
-
-export class Upgrader extends React.Component<IUpgraderProps, IUpgraderState> {
-
-    constructor(props: IUpgraderProps) {
-        super(props)
-        this.state = {
-            disabled:  props.bought || props.overallValue < props.value
-        }
-    }
+export class Upgrader extends React.Component<IUpgraderProps> {
     render() {
-        const { value, businessName } = this.props
+        const { value, businessName, times , overallValue} = this.props
         return (
             <div>
                 <div>
                     <div>
-                        <div><h6>upgrade {businessName}'s profit 3x</h6></div>
+                        <div><h6>upgrade {businessName}'s profit {times}x</h6></div>
                         <div><h5>${value}</h5></div>
                     </div>
                     <div>
-                        <Button variant='warning' disabled={this.state.disabled} onClick={this.onBuy}>
-                            {this.props.bought? 'Bought' : 'Buy'}
+                        <Button variant='warning' disabled={overallValue < value} onClick={this.onBuy}>
+                            Buy
                          </Button>
                     </div>
                 </div>
@@ -43,20 +31,10 @@ export class Upgrader extends React.Component<IUpgraderProps, IUpgraderState> {
         )
     }
 
-    componentDidUpdate(prevProps: IUpgraderProps) {
-        if (prevProps.overallValue !== this.props.overallValue) {
-                this.setState({
-                    disabled: this.props.bought || this.props.overallValue < this.props.value
-                })
-        }
-    }
-
     readonly onBuy = () => {
-        const {buyUpgrader, payForUpgrader} = this.props
-        buyUpgrader(this.props.businessName)
-        payForUpgrader(this.props.value)
-        this.setState({
-            disabled: true
-        })
+        const {buyUpgrader, payForUpgrader, businessName, times, value} = this.props
+        buyUpgrader(businessName, times)
+        payForUpgrader(value)
+
     }
 }

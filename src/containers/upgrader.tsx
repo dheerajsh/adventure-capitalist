@@ -15,7 +15,7 @@ export function mapStateToProps({ account}: StoreState.All, dispatchProps: IUpgr
 // tslint:disable-next-line:no-any
 export function mapDispatchToProps(dispatch: Dispatch<any>, dispatchProps: IUpgraderProps): object {
     return {
-        buyUpgrader: (name: string) => businessAction.buyUpgrader(name),
+        buyUpgrader: (name: string, times: number) => businessAction.buyUpgrader(name, times),
         payForUpgrader: (value: number) => actions.buy(value)
     }
 }
