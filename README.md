@@ -13,6 +13,8 @@ money.
 The game is idle, so it progresses while you are away: If you have a manager, the game
 continue playing while you’re gone.
 
+Working link [https://adventure-capitalists.web.app](https://adventure-capitalists.web.app)
+
 ## UI
 
 The UI of the game is build using Reactjs and to communicate state between different components Reduxjs is being used.
