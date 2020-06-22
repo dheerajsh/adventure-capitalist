@@ -1,17 +1,13 @@
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
-import { Map } from 'immutable'
-import { IUpgraderProps, Upgrader } from '../components/Upgrader/Upgrader'
+import { IUpgraderProps, Upgrader } from '../components/upgraders/upgrader'
 import { StoreState } from '../store/StoreState'
 import * as actions from '../actions/balance'
 import * as businessAction from '../actions/businesses'
 
-export function mapStateToProps({ businesses, account}: StoreState.All, dispatchProps: IUpgraderProps): IUpgraderProps {
+export function mapStateToProps({ account}: StoreState.All, dispatchProps: IUpgraderProps): IUpgraderProps {
     // eslint disable-next-line no-undefined
-    const businessCount = Map(businesses.businessesMap)
-    const business = businessCount.get(dispatchProps.businessName)
     return {
-        bought: business && business.hasActiveUpgrader,
         overallValue: account.balance
     }
 }

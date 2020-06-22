@@ -25,7 +25,7 @@ export class Upgrader extends React.Component<IUpgraderProps, IUpgraderState> {
         }
     }
     render() {
-        const { value, businessName, name } = this.props
+        const { value, businessName } = this.props
         return (
             <div>
                 <div>
