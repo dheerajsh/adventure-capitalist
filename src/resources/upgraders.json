@@ -1,0 +1,27 @@
+[
+    {
+        "businessName":"Lemonade Stand",
+        "value":13000,
+        "times":3
+    },
+    {
+        "businessName":"News Delivery",
+        "value":145000,
+        "times":3
+    },
+    {
+        "businessName":"Car Wash",
+        "value":305000,
+        "times":3
+    },
+    {
+        "businessName":"Donut Shop",
+        "value":607000,
+        "times":2
+    },
+    {
+        "businessName":"Pizza Delivery",
+        "value":1005000,
+        "times":2
+    }
+]

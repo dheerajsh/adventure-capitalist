@@ -1,0 +1,33 @@
+[
+    {
+        "name":"Lemonade Stand",
+        "value":2,
+        "state":"purchased",
+        "numberOfBusiness":1,
+        "makeMoneyTimeInMiliSeconds":2000
+    },
+    {
+        "name":"News Delivery",
+        "value":60,
+        "numberOfBusiness":0,
+        "makeMoneyTimeInMiliSeconds":3000
+    },
+    {
+        "name":"Car Wash",
+        "value":7200,
+        "numberOfBusiness":0,
+        "makeMoneyTimeInMiliSeconds":5000
+    },
+    {
+        "name":"Pizza Delivery",
+        "value":58640,
+        "numberOfBusiness":0,
+        "makeMoneyTimeInMiliSeconds":8000
+    },
+    {
+        "name":"Donut Shop",
+        "value":103680,
+        "numberOfBusiness":0,
+        "makeMoneyTimeInMiliSeconds":16000
+    }
+]

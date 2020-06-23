@@ -1,0 +1,27 @@
+[
+    {
+        "businessName":"Lemonade Stand",
+        "value":2000,
+        "name":"Marcus"
+    },
+    {
+        "businessName":"News Delivery",
+        "value":10000,
+        "name":"The undertaker"
+    },
+    {
+        "businessName":"Car Wash",
+        "value":106000,
+        "name":"The Rock"
+    },
+    {
+        "businessName":"Donut Shop",
+        "value":500500,
+        "name":"The Stephani"
+    },
+    {
+        "businessName":"Pizza Delivery",
+        "value":1005000,
+        "name":"The Dark lord"
+    }
+]
