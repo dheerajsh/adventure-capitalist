@@ -1,6 +1,7 @@
 
 import * as React from 'react'
 import Button from 'react-bootstrap/Button'
+import { formatBusinessValue } from '../../utils'
 
 export interface IManagerProps {
     readonly value?: number
@@ -33,7 +34,7 @@ export class Manager extends React.Component<IManagerProps, IManagerState> {
                     <div>
                         <div><h3>{name}</h3></div>
                         <div><h6>Runs {businessName}</h6></div>
-                        <div><h5>${value}</h5></div>
+                        <div><h5>{formatBusinessValue(value)}</h5></div>
                     </div>
                     <div>
                         <Button variant='warning' disabled={disabled} onClick={this.onBuy}>

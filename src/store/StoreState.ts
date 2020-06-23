@@ -13,6 +13,7 @@ export namespace StoreState {
         state: BusinessState,
         hasActiveManager: boolean,
         value: number,
+        makeMoneyTime: number
 
     }
     export type Businesess = {

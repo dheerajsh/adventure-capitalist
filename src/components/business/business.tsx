@@ -7,6 +7,7 @@ import Figure from 'react-bootstrap/Figure'
 
 import './business.sass'
 import { Timer } from '../timer/timer.component'
+import { convertMS, formatBusinessValue } from '../../utils'
 
 export enum BusinessState {
     LOCKED = 'locked',
@@ -20,7 +21,7 @@ export interface IBusinessProps {
     readonly numberOfBusiness?: number
     readonly madeMoney?: (money: number) => void
     readonly buyBusiness?: (money: number) => void
-    readonly incrementBusiness?: (name: string) => void
+    readonly incrementBusiness?: (name: string, makeMoneyTimeInMiliSeconds: number) => void
     readonly addBusinessValue?: (name: string, value: number) => void
     readonly overallValue?: number
     readonly state?: BusinessState
@@ -32,7 +33,6 @@ export interface IBusinessState {
     readonly state: BusinessState
     readonly minutes: number
     readonly seconds: number
-    readonly makeMoneyTimeInMiliSeconds?: number
     readonly currentValue?: number
     readonly progressPercentage?: number
     readonly numberOfBusiness?: number,
@@ -44,13 +44,12 @@ export class Business extends React.Component<IBusinessProps, IBusinessState> {
 
     constructor(props: IBusinessProps) {
         super(props)
-        const { minute, seconds} = this.convertMS(props.makeMoneyTimeInMiliSeconds)
+        const { minute, seconds} = convertMS(props.makeMoneyTimeInMiliSeconds)
         this.state = {
             currentValue: (this.props.value) * (this.props.numberOfBusiness),
             minutes: minute,
             seconds: seconds,
             progressPercentage: 0,
-            makeMoneyTimeInMiliSeconds: props.makeMoneyTimeInMiliSeconds,
             numberOfBusiness: props.numberOfBusiness,
             canMakeMoney: true,
             state: this.getCurrentState(),
@@ -111,7 +110,7 @@ export class Business extends React.Component<IBusinessProps, IBusinessState> {
                                 {this.props.name}
                             </div>
                             <div>
-                                {`${this.props.value}.00`}
+                                {formatBusinessValue(this.props.value)}
                             </div>
                         </Button>
                     </Row>
@@ -139,7 +138,7 @@ export class Business extends React.Component<IBusinessProps, IBusinessState> {
                             <ProgressBar className='money_progress' now={this.state.progressPercentage} variant='success' animated striped label={this.state.currentValue} />
                             <div className='buy'>
                                 <Button variant='warning' className='buy_button' disabled={overallValue < value} onClick={this.buyBusiness}>
-                                    BUYx1-${value}
+                                    BUY x1/${value}
                                 </Button>
                                 <Button variant='secondary' disabled>
                                     <Timer minutes={this.state.minutes} seconds={this.state.seconds}></Timer>
@@ -153,7 +152,7 @@ export class Business extends React.Component<IBusinessProps, IBusinessState> {
     }
     readonly buyBusiness = () => {
         this.props.buyBusiness(this.props.value)
-        this.props.incrementBusiness(this.props.name)
+        this.props.incrementBusiness(this.props.name, this.props.makeMoneyTimeInMiliSeconds)
         this.setState({
             currentValue: this.state.currentValue + this.props.value,
             numberOfBusiness: this.state.numberOfBusiness + 1,
@@ -176,7 +175,7 @@ export class Business extends React.Component<IBusinessProps, IBusinessState> {
             if (minutes === 0) {
                 clearInterval(timer)
                 this.props.madeMoney(currentValue)
-                const { minute, seconds} = this.convertMS(this.props.makeMoneyTimeInMiliSeconds)
+                const { minute, seconds} =convertMS(this.props.makeMoneyTimeInMiliSeconds)
                 this.setState({
                     seconds: seconds,
                     minutes: minute,
@@ -194,7 +193,7 @@ export class Business extends React.Component<IBusinessProps, IBusinessState> {
 
     readonly makeMoney = () => {
         if (this.state.canMakeMoney) {
-            const { makeMoneyTimeInMiliSeconds } = this.state
+            const { makeMoneyTimeInMiliSeconds } = this.props
 
             const progress = (100 / (makeMoneyTimeInMiliSeconds / 1000));
             const decreamentTimer = this.decreamentTimer.bind(this)
@@ -204,20 +203,4 @@ export class Business extends React.Component<IBusinessProps, IBusinessState> {
         }
     }
 
-    convertMS( milliseconds: number ) {
-        var day, hour, minute, seconds;
-        seconds = Math.floor(milliseconds / 1000);
-        minute = Math.floor(seconds / 60);
-        seconds = seconds % 60;
-        hour = Math.floor(minute / 60);
-        minute = minute % 60;
-        day = Math.floor(hour / 24);
-        hour = hour % 24;
-        return {
-            day: day,
-            hour: hour,
-            minute: minute,
-            seconds: seconds
-        };
-    }
 }

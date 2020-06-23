@@ -6,10 +6,11 @@ export const ADD_MANAGER = 'business/ADD_MANAGER'
 export const UPGRADE_BUSINESS= 'business/UPGRADE_BUSINESS'
 
 
-export function add(businessName: string) {
+export function add(businessName: string, makeMoneyTime) {
     const action = {
         type: ADD,
-        businessName
+        businessName,
+        makeMoneyTime
     }
     store.dispatch(action)
 }
@@ -44,5 +45,6 @@ export interface businessActionType {
     type: typeof ADD | typeof ADD_MANAGER | typeof UPGRADE_BUSINESS | typeof ADD_MANAGER | typeof ADD_VALUE
     businessName: string,
     value: number,
-    times: number
+    times: number,
+    makeMoneyTime: number,
 }

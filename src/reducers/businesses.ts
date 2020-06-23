@@ -30,6 +30,7 @@ export function businessReducer(state = initialState, action: businessActionType
                 businessesMap: businesses.set(action.businessName, {
                     ...business,
                     state: BusinessState.PURCHASED,
+                    makeMoneyTime: action.makeMoneyTime,
                     count
                 })
             }

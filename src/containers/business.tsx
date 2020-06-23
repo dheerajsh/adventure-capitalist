@@ -12,7 +12,7 @@ export function mapStateToProps({ businesses, account }: StoreState.All,  dispat
     const businessCount = Map(businesses.businessesMap)
     const business = businessCount.get(dispatchProps.name)
     return {
-        numberOfBusiness: dispatchProps.numberOfBusiness ? dispatchProps.numberOfBusiness  : business?.count ?? 0,
+        numberOfBusiness: business?.count ?? dispatchProps?.numberOfBusiness ??  0,
         overallValue: account.balance,
         state: dispatchProps.state ? dispatchProps.state : business?.state ?? BusinessState.LOCKED,
         hasActiveManager: business && business.hasActiveManager,
@@ -24,7 +24,7 @@ export function mapDispatchToProps(dispatch: Dispatch<any>, dispatchProps: IBusi
     return {
         madeMoney: (amount: number) => actions.add(amount),
         buyBusiness: (amount: number) => actions.buy(amount),
-        incrementBusiness: (name: string) => businessAction.add(name),
+        incrementBusiness: (name: string, makeMoneyTime: number) => businessAction.add(name, makeMoneyTime),
         addBusinessValue: (name:string, value: number) => businessAction.addValue(name, value)
     }
 }

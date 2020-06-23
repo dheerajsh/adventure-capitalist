@@ -16,7 +16,6 @@ export function mapStateToProps({ businesses, account}: StoreState.All, dispatch
     }
 }
 
-// tslint:disable-next-line:no-any
 export function mapDispatchToProps(dispatch: Dispatch<any>, dispatchProps: IManagerProps): object {
     return {
         buyManager: (name: string) => businessAction.buyManager(name),
