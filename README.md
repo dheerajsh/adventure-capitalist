@@ -26,6 +26,14 @@ Working link [https://adventure-capitalists.web.app](https://adventure-capitalis
 
 The UI of the game is build using Reactjs and to communicate state between different components Reduxjs is being used.
 
+## Architecture and Technical Chioces
+1. Challange and Solution: The main challenge here was to communicate among different components For. eg. when a business made money, it should be reflacted in total balance or When an manager get hired it shuold be able to run the business without user interaction.
+To Solve this problem I used redux store to share the state of the business across component. Components can individually able to update the state and other will receive the update immediatly and asynchronously.
+2.Focus: The solution is focus on Front-end only as there wasn't a necessity to use any backend service for the given requirements.
+3. Reasoning : Async communicattion and a pesistent state of the game led me to use react and redux based solution. By having a pesistent state on browser I was able to achieve the feature of idle game i.e, the game was running while you were offline.
+I was able to acheive that by recalculating the time user was offline and the active running managers user had without actually running a worker on the background.
+4. Trade off: Some of the features from the original game were intentionally left out due to time constrant, for example changing the price for buying another unit of a business based on how many units user bought so far. UI is also pretty basic using raw bootstrap components, which could be more appealing if time would have allowed.
+5. Link to the hosted application: [https://adventure-capitalists.web.app](https://adventure-capitalists.web.app)
 
 ## Available Scripts
 
